@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>SHIRTS START AT £14.75, INCLUDING ALL THE DESIGN, NAMES, NUMBERS, SPONSORS AND TEAM BADGE.</h1>
+<p></p>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/images/1.avif" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/images/2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/images/3.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container mt-6">
+    <h2>Products</h2>
+    <div class="card-group">
+        {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 300px !important;">
+                <img src="{{ url_for('static', filename='uploads/' + item.images) }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.description }}</p>
+                    <div class="btn-group" role="group" aria-label="Item Actions">
+                        <a href="{{ url_for('item', item_id=item.id) }}" class="btn btn-primary">View Details</a>
+                        {% if current_user.is_authenticated and current_user.username == 'admin' and current_user.check_password('adminpass')  %}
+                            <a href="{{ url_for('edit_item', item_id=item.id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ url_for('delete_item', item_id=item.id) }}" method="post" style="display: inline;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

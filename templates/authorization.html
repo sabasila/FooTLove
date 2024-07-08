@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Register</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.username.label }} {{ form.username(class_='form-control') }}
+            {% for error in form.username.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label }} {{ form.password(class_='form-control') }}
+            {% for error in form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.repeat_password.label }} {{ form.repeat_password(class_='form-control') }}
+            {% for error in form.repeat_password.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.birthday.label }} {{ form.birthday(class_='form-control') }}
+            {% for error in form.birthday.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.gender.label }} <br>
+            {{ form.gender(class_='form-check-input', id='gender') }}
+            {% for error in form.gender.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+            </br>
+             </br>
+
+        </div>
+        <div class="mb-3">
+            {{ form.country.label }} {{ form.country(class_='form-select') }}
+            {% for error in form.country.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.submit(class_='btn btn-primary') }}
+        </div>
+    </form>
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+{% endblock %}
